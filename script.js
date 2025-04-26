@@ -18,6 +18,29 @@ document.addEventListener("DOMContentLoaded", () => {
       usernameError.textContent = "";
     }
 
+    usernameInput.addEventListener("input", () => {
+      if (usernameInput.value.trim() === "") {
+        usernameError.textContent = "Username cannot be empty.";
+      } else {
+        usernameError.textContent = "";
+      }
+    });
+    
+    emailInput.addEventListener("input", () => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value)) {
+        emailError.textContent = "Invalid email format.";
+      } else {
+        emailError.textContent = "";
+      }
+    });
+
+    const resetButton = document.getElementById("resetButton");
+resetButton.addEventListener("click", () => {
+  usernameError.textContent = "";
+  emailError.textContent = "";
+});
+
     // Email Validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(emailInput.value)) {
@@ -38,4 +61,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     colorButton.style.backgroundColor = randomColor;
   });
+});
+let clickCount = 0;
+colorButton.addEventListener("click", () => {
+  clickCount++;
+  document.getElementById("clickCounter").textContent = `Button clicked: ${clickCount} times`;
+});
+
+const themeToggle = document.getElementById("themeToggle");
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme");
 });
